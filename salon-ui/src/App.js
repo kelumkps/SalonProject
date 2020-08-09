@@ -1,22 +1,30 @@
 import React from 'react';
 import { Navbar} from 'react-bootstrap'
-// import './App.css';
+import {LoadingIndicator} from './components/LoadingIndicator';
+import {AppNotificationComponent} from './components/AppNotificationComponent';
+import {ChooseService} from './components/ChooseService';
 
-function App() {
-  return (
-    <div className="App">
-      <div>
-          <Navbar bg="dark" variant="dark">
-            <Navbar.Brand >AR Salon and Day Spa</Navbar.Brand>
-          </Navbar>
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <div>
+            <Navbar bg="dark" variant="dark">
+              <Navbar.Brand >AR Salon and Day Spa</Navbar.Brand>
+            </Navbar>
+        </div>
+        <header className="App-header">
+          <div>
+            <LoadingIndicator/>
+            <AppNotificationComponent/>
+            <ChooseService/>
+          </div>
+        </header>
       </div>
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-    </div>
-  );
+    );
+  }
+
 }
+
 
 export default App;
