@@ -14,6 +14,9 @@ class LoadingIndicator extends React.Component {
     componentDidMount() {
         this.subscription = progressService.getProgress().subscribe(progress => {
             if (progress) {
+                if (!this.showProgress) {
+                    this.setState({ showProgress: true });
+                }
                 this.setState({ currentProgress: progress });
             } else {
                 this.setState({ showProgress: false });
@@ -40,4 +43,4 @@ class LoadingIndicator extends React.Component {
     }
 }
 
-export {LoadingIndicator};
+export default LoadingIndicator;

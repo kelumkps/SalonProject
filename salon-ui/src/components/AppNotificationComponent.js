@@ -40,4 +40,4 @@ class AppNotificationComponent extends React.Component {
     }
 }
 
-export { AppNotificationComponent };
+export default AppNotificationComponent;

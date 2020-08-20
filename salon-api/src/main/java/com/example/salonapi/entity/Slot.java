@@ -30,6 +30,3 @@ public class Slot {
     private LocalDateTime confirmedAt;
 }
 
-enum SlotStatus {
-    AVAILABLE, LOCKED, CONFIRMED, CANCELLED
-}

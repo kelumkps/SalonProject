@@ -49,4 +49,4 @@ class ChooseService extends React.Component {
     }
 }
 
-export { ChooseService };
+export default ChooseService;
