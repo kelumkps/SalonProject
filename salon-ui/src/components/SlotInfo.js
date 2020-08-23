@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { withRouter  } from "react-router";
 
 class SlotInfo extends React.Component {
     formatAMPM(date) {
@@ -14,12 +15,12 @@ class SlotInfo extends React.Component {
         return strTime;
     }
 
-    onClickBook(info) {
-        console.log("Selected slot is", info);
+    onClickBook(info, serviceId, serviceName) {
+        this.props.history.push(`/makepayment/${info.id}/${serviceId}/${serviceName}`);
     }
 
     render() {
-        const {info, serviceName} = this.props;
+        const {info, serviceId, serviceName} = this.props;
         return (
             <Card>
                 <Card.Header as="h5">{serviceName}</Card.Header>
@@ -28,7 +29,7 @@ class SlotInfo extends React.Component {
                     <Card.Text>
                         Slot Time {this.formatAMPM(new Date(info.slotFor))}
                     </Card.Text>
-                    <Button variant="outline-primary" onClick={(e) => this.onClickBook(info)} >Book This Slot</Button>
+                    <Button variant="outline-primary" onClick={(e) => this.onClickBook(info, serviceId, serviceName)} >Book This Slot</Button>
                 </Card.Body>
             </Card>
         );
@@ -37,4 +38,4 @@ class SlotInfo extends React.Component {
 
 }
 
-export default SlotInfo;
+export default withRouter(SlotInfo);

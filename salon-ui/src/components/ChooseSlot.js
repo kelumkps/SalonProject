@@ -50,6 +50,7 @@ class ChooseSlot extends React.Component {
         }
         setTimeout(() => {
             progressService.clearProgress();
+            this.setState({ progress: 0 });
         }, 1000);
     }
 
@@ -65,7 +66,7 @@ class ChooseSlot extends React.Component {
     }
 
     render() {
-        const {serviceName, slots, slotDate} = this.state;
+        const {serviceId, serviceName, slots, slotDate} = this.state;
         const today = new Date().toISOString().substring(0, 10);
         return (
             <div>
@@ -82,7 +83,7 @@ class ChooseSlot extends React.Component {
                             onChange={(e)=>this.setDate(e.target.value)}/>
                 </div>
                     <div className="col-3">
-                        <button type="submit" className="btn btn-primary" onClick={(evt) => this.showSlotsOnDate()} >
+                        <button type="submit" disabled={!slotDate} className="btn btn-primary" onClick={(evt) => this.showSlotsOnDate()} >
                             Show Slots
                         </button>
                     </div>
@@ -94,7 +95,7 @@ class ChooseSlot extends React.Component {
                 </div>
                 <CardColumns>
                     {slots.map((info, index) =>
-                        <SlotInfo key={index} info={info} serviceName={serviceName}/>
+                        <SlotInfo key={index} info={info} serviceId={serviceId} serviceName={serviceName}/>
                     )}
                 </CardColumns>
             </div>

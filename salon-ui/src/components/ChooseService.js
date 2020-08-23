@@ -34,6 +34,7 @@ class ChooseService extends React.Component {
         }
         setTimeout(() => {
             progressService.clearProgress();
+            this.setState({ progress: 0 });
         }, 1000);
     }
 
