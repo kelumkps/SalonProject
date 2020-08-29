@@ -32,9 +32,11 @@ class ChooseSlot extends React.Component {
         const {slotDate, serviceId} = this.state;
         const interval = setInterval(() => {
             let currentProgress = this.state.progress;
-            currentProgress = currentProgress < 90 ? currentProgress + 1: currentProgress;
-            this.setState({ progress: currentProgress });
-            progressService.setCurrentProgress(this.state.progress);
+            if (currentProgress < 90) {
+                currentProgress = currentProgress + 1;
+                this.setState({ progress: currentProgress });
+                progressService.setCurrentProgress(this.state.progress);
+            }
         }, 50);
         try {
             const url = `http://localhost:8080/api/services/retrieveAvailableSlots?serviceId=${serviceId}&slotFor=${slotDate}`
@@ -45,7 +47,9 @@ class ChooseSlot extends React.Component {
             progressService.setCurrentProgress(this.state.progress);
             this.setState({ slots: slots });
         } catch(err) {
+            clearInterval(interval);
             this.setState({ progress: 100 });
+            progressService.setCurrentProgress(this.state.progress);
             notificationService.notifyError("Something went wrong! : " + err);
         }
         setTimeout(() => {

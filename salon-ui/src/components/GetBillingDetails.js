@@ -29,9 +29,11 @@ class GetBillingDetails extends React.Component {
         const {slotId, serviceId} = this.props;
         const interval = setInterval(() => {
             let currentProgress = this.state.progress;
-            currentProgress = currentProgress < 90 ? currentProgress + 1: currentProgress;
-            this.setState({ progress: currentProgress });
-            progressService.setCurrentProgress(this.state.progress);
+            if (currentProgress < 90) {
+                currentProgress = currentProgress + 1;
+                this.setState({ progress: currentProgress });
+                progressService.setCurrentProgress(this.state.progress);
+            }
         }, 50);
         try {
             let response = await fetch('http://localhost:8080/api/payments/initiate', {
@@ -63,7 +65,9 @@ class GetBillingDetails extends React.Component {
             }, 1000);
             paymentService.paymentInitiated(payment);
         } catch(err) {
+            clearInterval(interval);
             this.setState({ progress: 100 });
+            progressService.setCurrentProgress(this.state.progress);
             notificationService.notifyError("Something went wrong! : " + err);
             setTimeout(() => {
                 progressService.clearProgress();

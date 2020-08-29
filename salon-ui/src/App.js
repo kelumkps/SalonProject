@@ -9,6 +9,7 @@ import AppNotificationComponent from './components/AppNotificationComponent';
 import ChooseService from './components/ChooseService';
 import ChooseSlot from './components/ChooseSlot';
 import PaymentContainer from './components/PaymentContainer';
+import VerifyUser from './components/VerifyUser';
 
 const stripePromise = loadStripe("<STRIPE_PUBLIC_KEY>");
 
@@ -31,6 +32,7 @@ class App extends React.Component {
                       <Route exact path="/" component={ChooseService}></Route>
                       <Route path="/chooseslot/:serviceId/:serviceName"  component={ChooseSlot}></Route>
                       <Route path="/makepayment/:slotId/:serviceId/:serviceName"  component={PaymentContainer}></Route>
+                      <Route path="/admin/verifyuser"  component={VerifyUser}></Route>
                       <Route>
                           <ChooseService/>
                       </Route>

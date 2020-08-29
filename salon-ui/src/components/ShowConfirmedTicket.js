@@ -16,9 +16,11 @@ class ShowConfirmedTicket extends React.Component {
         const {paymentId} = this.props;
         const interval = setInterval(() => {
             let currentProgress = this.state.progress;
-            currentProgress = currentProgress < 90 ? currentProgress + 1: currentProgress;
-            this.setState({ progress: currentProgress });
-            progressService.setCurrentProgress(this.state.progress);
+            if (currentProgress < 90) {
+                currentProgress = currentProgress + 1;
+                this.setState({ progress: currentProgress });
+                progressService.setCurrentProgress(this.state.progress);
+            }
         }, 50);
         try {
             let response = await fetch(`http://localhost:8080/api/payments/confirm/${paymentId}`, {
@@ -42,7 +44,9 @@ class ShowConfirmedTicket extends React.Component {
                 serviceName : serviceName
             });
         } catch(err) {
+            clearInterval(interval);
             this.setState({ progress: 100 });
+            progressService.setCurrentProgress(this.state.progress);
             notificationService.notifyError("Something went wrong! : " + err);
         }
         setTimeout(() => {

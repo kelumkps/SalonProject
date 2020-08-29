@@ -28,9 +28,11 @@ class PayWithStripe extends React.Component {
 
         const interval = setInterval(() => {
             let currentProgress = this.state.progress;
-            currentProgress = currentProgress < 90 ? currentProgress + 1: currentProgress;
-            this.setState({ progress: currentProgress });
-            progressService.setCurrentProgress(this.state.progress);
+            if (currentProgress < 90) {
+                currentProgress = currentProgress + 1;
+                this.setState({ progress: currentProgress });
+                progressService.setCurrentProgress(this.state.progress);
+            }
         }, 50);
 
         const {stripe, elements} = this.props;
